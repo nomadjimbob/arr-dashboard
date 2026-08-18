@@ -43,6 +43,7 @@ export interface PlexLibrary {
 	key: string; // section ID
 	title: string;
 	type: string; // "movie" | "show" | "artist"
+	agent?: string; // e.g. "tv.plex.agents.movie", "com.plexapp.agents.none"
 }
 
 export interface PlexGuid {
@@ -106,6 +107,7 @@ export interface PlexHistoryItem {
 	type: string; // "movie" | "episode" | "track"
 	viewedAt: number; // Unix timestamp
 	accountID: number;
+	librarySectionID?: string;
 }
 
 export interface PlexAccount {
@@ -171,6 +173,7 @@ function createHistoryProofAccumulator() {
 						item.type,
 						item.viewedAt,
 						item.accountID,
+						item.librarySectionID ?? null,
 					]),
 				)
 				.digest();
@@ -265,6 +268,7 @@ export class PlexClient {
 			key: d.key,
 			title: d.title,
 			type: d.type,
+			agent: d.agent,
 		}));
 	}
 
@@ -533,6 +537,7 @@ export class PlexClient {
 					type: item.type,
 					viewedAt: item.viewedAt,
 					accountID: item.accountID,
+					librarySectionID: item.librarySectionID,
 				});
 			}
 			if (metadataLightSnapshot && normalizedItems.length > 0) {
