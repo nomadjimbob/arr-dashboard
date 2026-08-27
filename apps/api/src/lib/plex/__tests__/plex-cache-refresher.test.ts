@@ -775,10 +775,10 @@ describe("collectPlexCacheLiveEvidence", () => {
 		};
 		const mixedSections = [
 			{ key: "1", title: "Movies", type: "movie", agent: "tv.plex.agents.movie" },
-			{ key: "2", title: "Other Videos", type: "movie", agent: "com.plexapp.agents.none" },
+			{ key: "2", title: "Other Videos", type: "movie", agent: "tv.plex.agents.none" },
 		];
 
-		it("excludes a Personal Media section from the supported-media authority domain", async () => {
+		it("excludes the modern Personal Media agent from the supported-media authority domain", async () => {
 			const mockClient = {
 				getAccounts: vi.fn().mockResolvedValue([{ id: 1, name: "Alice" }]),
 				getLibrarySections: vi.fn().mockResolvedValue(mixedSections),
