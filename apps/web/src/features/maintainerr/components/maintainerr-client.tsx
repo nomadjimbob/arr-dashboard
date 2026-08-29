@@ -20,7 +20,7 @@ const formatDue = (item: MaintainerrScheduledItem) => {
 
 export const MaintainerrClient = () => {
 	const { data: services = [], isLoading: servicesLoading } = useServicesQuery();
-	const { isIncognito } = useIncognitoMode();
+	const [isIncognito] = useIncognitoMode();
 	const instances = useMemo(
 		() => services.filter((service) => service.service === "maintainerr" && service.enabled),
 		[services],
