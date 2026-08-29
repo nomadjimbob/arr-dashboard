@@ -46,13 +46,6 @@ export const NAVIGATION_GROUPS: NavigationGroup[] = [
 		label: "Monitor",
 		items: [
 			{
-				href: "/maintainerr",
-				label: "Maintainerr",
-				description: "Review scheduled cleanup actions",
-				icon: CalendarClock,
-				keywords: ["cleanup", "removal", "scheduled"],
-			},
-			{
 				href: "/dashboard",
 				label: "Dashboard",
 				description: "Your media system at a glance",
@@ -147,6 +140,13 @@ export const NAVIGATION_GROUPS: NavigationGroup[] = [
 				description: "Keep download queues healthy",
 				icon: Trash2,
 				keywords: ["downloads", "failed", "stalled"],
+			},
+			{
+				href: "/maintainerr",
+				label: "Maintainerr",
+				description: "Review scheduled cleanup actions",
+				icon: CalendarClock,
+				keywords: ["cleanup", "removal", "scheduled"],
 			},
 			{
 				href: "/library-cleanup",
