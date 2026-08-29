@@ -9,7 +9,9 @@ import { fetchMaintainerrSchedule } from "../../../lib/api-client/maintainerr";
 import { getLinuxIsoName, useIncognitoMode } from "../../../lib/incognito";
 import { POLLING_BACKGROUND } from "../../../lib/polling-intervals";
 import { maintainerrKeys } from "../../../lib/query-keys";
-import { SEMANTIC_COLORS } from "../../../lib/theme-gradients";
+import { SEMANTIC_COLORS, SERVICE_GRADIENTS } from "../../../lib/theme-gradients";
+
+const maintainerrGradient = SERVICE_GRADIENTS.maintainerr;
 
 interface MaintainerrWidgetProps {
 	instances: Array<{ id: string; label: string }>;
@@ -57,7 +59,6 @@ export const MaintainerrWidget = ({
 	const overdue = items.filter((item) => item.overdue).length;
 	const dueSoon = items.filter((item) => item.dueSoon).length;
 	const total = schedule.data?.totalCount ?? items.length;
-	const accent = overdue > 0 ? SEMANTIC_COLORS.error.text : SEMANTIC_COLORS.warning.text;
 
 	return (
 		<div
@@ -68,13 +69,18 @@ export const MaintainerrWidget = ({
 				<div className="group overflow-hidden rounded-xl border border-border/30 bg-muted/10 transition-all hover:border-border/80">
 					<div
 						className="h-0.5 w-full rounded-t-xl"
-						style={{ background: `linear-gradient(90deg, ${accent}, var(--primary))` }}
+						style={{
+							background: `linear-gradient(90deg, ${maintainerrGradient.from}, ${maintainerrGradient.to})`,
+						}}
 					/>
 					<div className="p-4">
 						<div className="flex items-center justify-between">
 							<div className="flex items-center gap-2">
 								<div className="flex h-8 w-8 items-center justify-center rounded-lg border border-border/40 bg-card/40">
-									<CalendarClock className="h-4 w-4" style={{ color: accent }} />
+									<CalendarClock
+										className="h-4 w-4"
+										style={{ color: maintainerrGradient.from }}
+									/>
 								</div>
 								<div>
 									<h3 className="text-sm font-semibold text-foreground">Maintainerr</h3>
