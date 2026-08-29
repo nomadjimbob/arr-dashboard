@@ -49,6 +49,7 @@ import { useDashboardFilters } from "../hooks/useDashboardFilters";
 import { useDashboardQueue } from "../hooks/useDashboardQueue";
 import { NeedsAttentionPanel } from "./needs-attention-panel";
 import { type DashboardTab, DashboardTabs } from "./dashboard-tabs";
+import { MaintainerrWidget } from "./maintainerr-widget";
 import { NowPlayingWidget } from "./now-playing-widget";
 import { OnDeckWidget } from "./on-deck-widget";
 import { PlexServerInfoWidget } from "./plex-server-info-widget";
@@ -357,6 +358,13 @@ export const DashboardClient = () => {
 	// Find first enabled Seerr instance for dashboard widget
 	const seerrInstance = useMemo(
 		() => services.find((s) => s.service.toLowerCase() === "seerr" && s.enabled),
+		[services],
+	);
+	const maintainerrInstances = useMemo(
+		() =>
+			services
+				.filter((s) => s.service.toLowerCase() === "maintainerr" && s.enabled)
+				.map(({ id, label }) => ({ id, label })),
 		[services],
 	);
 
@@ -721,12 +729,15 @@ export const DashboardClient = () => {
 						</div>
 
 						{/* Two-column widget grid for media widgets + storage */}
-						{(seerrInstance || hasMediaServer || stats?.combinedDisk) && (
+						{(seerrInstance || maintainerrInstances.length > 0 || hasMediaServer || stats?.combinedDisk) && (
 							<div className="grid gap-6 lg:grid-cols-2">
 								{/* Left column */}
 								<div className="space-y-6">
 									{seerrInstance && (
 										<SeerrRequestsWidget instanceId={seerrInstance.id} animationDelay={400} />
+									)}
+									{maintainerrInstances.length > 0 && (
+										<MaintainerrWidget instances={maintainerrInstances} animationDelay={425} />
 									)}
 									{hasMediaServer && sessionCount !== undefined && sessionCount > 0 && (
 										<NowPlayingWidget
