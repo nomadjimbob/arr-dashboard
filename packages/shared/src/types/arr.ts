@@ -19,6 +19,7 @@ export const INTEGRATION_SERVICES = [
 	"emby",
 	"qui",
 	"tracearr",
+	"maintainerr",
 ] as const;
 
 /** All supported service types */
@@ -78,6 +79,7 @@ export const multiInstanceConfigSchema = z.object({
 	emby: z.array(serviceInstanceSchema).default([]),
 	qui: z.array(serviceInstanceSchema).default([]),
 	tracearr: z.array(serviceInstanceSchema).default([]),
+	maintainerr: z.array(serviceInstanceSchema).default([]),
 	tautulli: z.array(serviceInstanceSchema).default([]),
 });
 

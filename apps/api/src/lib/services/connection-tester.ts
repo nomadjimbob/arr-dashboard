@@ -106,6 +106,20 @@ export async function testServiceConnection(
 			return await testTracearrConnection(normalizedBaseUrl, apiKey);
 		}
 
+		if (service === "maintainerr") {
+			const testUrl = `${normalizedBaseUrl}/api/health`;
+			const response = await fetch(testUrl, {
+				headers: { Accept: "application/json", ...createHttpAuthHeaders(httpAuth) },
+				signal: AbortSignal.timeout(5000),
+			});
+			if (!response.ok) return handleHttpError(response, normalizedBaseUrl);
+			const data = (await response.json()) as { status?: string };
+			if (data.status !== "ok") {
+				return { success: false, error: "Maintainerr is not ready" };
+			}
+			return { success: true, message: "Successfully connected to Maintainerr" };
+		}
+
 		// Tautulli uses query-parameter API-key authentication and wraps command
 		// results in its own response envelope.
 		if (service === "tautulli") {

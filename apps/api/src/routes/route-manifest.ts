@@ -32,6 +32,7 @@ import { registerLabelSyncRoutes } from "./label-sync.js";
 import { registerLibraryRoutes } from "./library.js";
 import { registerLibraryCleanupRoutes } from "./library-cleanup.js";
 import { registerManualImportRoutes } from "./manual-import.js";
+import { registerMaintainerrRoutes } from "./maintainerr.js";
 import { registerNotificationRoutes } from "./notifications.js";
 import oidcProvidersRoutes from "./oidc-providers.js";
 import { registerPlexRoutes } from "./plex/index.js";
@@ -148,6 +149,13 @@ export const PUBLIC_ROUTE_GROUPS: readonly RouteGroup[] = [
  * no per-route auth check (single-admin model). See ADR-0003.
  */
 export const PROTECTED_ROUTE_GROUPS: readonly RouteGroup[] = [
+	{
+		path: "/api/maintainerr",
+		prefix: "/api/maintainerr",
+		register: registerMaintainerrRoutes,
+		maturity: "experimental",
+		summary: "Read-only Maintainerr scheduled-action attention feed",
+	},
 	// --- Auth / identity admin ---
 	{
 		path: "/api/oidc-providers",

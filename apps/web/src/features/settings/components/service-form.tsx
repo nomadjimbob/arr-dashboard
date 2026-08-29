@@ -109,9 +109,11 @@ export const ServiceForm = ({
 			<CardHeader>
 				<CardTitle>{selectedService ? "Edit Service" : "Add Service"}</CardTitle>
 				<CardDescription>
-					{selectedService
-						? "Update connection details. Leave API key empty to keep the current key."
-						: "Provide the base URL and API key for the instance."}
+					{formState.service === "maintainerr"
+						? "Provide the internal Maintainerr URL. No API key is required."
+						: selectedService
+							? "Update connection details. Leave API key empty to keep the current key."
+							: "Provide the base URL and API key for the instance."}
 				</CardDescription>
 			</CardHeader>
 			<CardContent>
@@ -309,36 +311,38 @@ export const ServiceForm = ({
 							data-form-type="other"
 						/>
 					</SimpleFormField>
-					<SimpleFormField
-						label="API Key"
-						htmlFor="service-apikey"
-						hint={
-							selectedService
-								? "Leave empty to keep current key"
-								: formState.service === "jellyfin" || formState.service === "emby"
-									? "Found in Dashboard > API Keys"
-									: "Found in Settings > General"
-						}
-						required={!selectedService}
-					>
-						<Input
-							id="service-apikey"
-							type="password"
-							value={formState.apiKey}
-							onChange={(event) =>
-								onFormStateChange((prev) => ({
-									...prev,
-									apiKey: event.target.value,
-								}))
+					{formState.service !== "maintainerr" && (
+						<SimpleFormField
+							label="API Key"
+							htmlFor="service-apikey"
+							hint={
+								selectedService
+									? "Leave empty to keep current key"
+									: formState.service === "jellyfin" || formState.service === "emby"
+										? "Found in Dashboard > API Keys"
+										: "Found in Settings > General"
 							}
-							placeholder={selectedService ? "Leave blank to keep current key" : "Your API key"}
 							required={!selectedService}
-							autoComplete="off"
-							data-1p-ignore
-							data-lpignore="true"
-							data-form-type="other"
-						/>
-					</SimpleFormField>
+						>
+							<Input
+								id="service-apikey"
+								type="password"
+								value={formState.apiKey}
+								onChange={(event) =>
+									onFormStateChange((prev) => ({
+										...prev,
+										apiKey: event.target.value,
+									}))
+								}
+								placeholder={selectedService ? "Leave blank to keep current key" : "Your API key"}
+								required={!selectedService}
+								autoComplete="off"
+								data-1p-ignore
+								data-lpignore="true"
+								data-form-type="other"
+							/>
+						</SimpleFormField>
+					)}
 					<div className="space-y-3 rounded-lg border border-border/50 p-3">
 						<label className="flex items-center gap-2 text-sm">
 							<input

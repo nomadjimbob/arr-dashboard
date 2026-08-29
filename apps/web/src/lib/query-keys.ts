@@ -675,6 +675,11 @@ export const namingKeys = {
 	history: ["naming-history"] as const,
 };
 
+export const maintainerrKeys = {
+	all: ["maintainerr"] as const,
+	schedule: (instanceIds: string[]) => ["maintainerr", "schedule", ...instanceIds] as const,
+};
+
 /* -------------------------------------------------------------------------- */
 /*  Backward-compatible constants                                              */
 /*  These match the old per-file `const X_QUERY_KEY` pattern.                  */

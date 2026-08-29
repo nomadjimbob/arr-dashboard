@@ -260,6 +260,46 @@ describe("testServiceConnection — Tracearr health probe", () => {
 	});
 });
 
+describe("testServiceConnection — Maintainerr health probe", () => {
+	it("accepts a ready Maintainerr instance without an API key", async () => {
+		vi.mocked(fetch).mockResolvedValueOnce(
+			new Response(JSON.stringify({ status: "ok" }), {
+				status: 200,
+				headers: { "content-type": "application/json" },
+			}),
+		);
+
+		const result = await testServiceConnection(
+			"http://maintainerr:6246",
+			"maintainerr-no-api-key",
+			"maintainerr",
+		);
+
+		expect(result).toMatchObject({ success: true });
+		expect(fetch).toHaveBeenCalledWith(
+			"http://maintainerr:6246/api/health",
+			expect.objectContaining({ headers: expect.objectContaining({ Accept: "application/json" }) }),
+		);
+	});
+
+	it("fails closed when Maintainerr reports a degraded state", async () => {
+		vi.mocked(fetch).mockResolvedValueOnce(
+			new Response(JSON.stringify({ status: "degraded" }), {
+				status: 200,
+				headers: { "content-type": "application/json" },
+			}),
+		);
+
+		const result = await testServiceConnection(
+			"http://maintainerr:6246",
+			"maintainerr-no-api-key",
+			"maintainerr",
+		);
+
+		expect(result).toMatchObject({ success: false, error: "Maintainerr is not ready" });
+	});
+});
+
 describe("testServiceConnection — Tautulli information probe", () => {
 	let fetchSpy: FetchSpy;
 

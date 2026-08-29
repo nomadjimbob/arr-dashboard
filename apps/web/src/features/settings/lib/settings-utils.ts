@@ -129,6 +129,11 @@ export const getServicePlaceholders = (service: ServiceType) => {
 				label: "Primary Tautulli",
 				baseUrl: "http://localhost:8181",
 			};
+		case "maintainerr":
+			return {
+				label: "Primary Maintainerr",
+				baseUrl: "http://maintainerr:6246",
+			};
 		default:
 			return {
 				label: "Primary Instance",

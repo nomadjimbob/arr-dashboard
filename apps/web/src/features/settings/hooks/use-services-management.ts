@@ -177,7 +177,8 @@ export const useServicesManagement = () => {
 			label: formState.label.trim(),
 			baseUrl: formState.baseUrl.trim(),
 			externalUrl,
-			apiKey: formState.apiKey.trim(),
+			apiKey:
+				formState.service === "maintainerr" ? "maintainerr-no-api-key" : formState.apiKey.trim(),
 			httpAuth,
 			service: formState.service,
 			enabled: formState.enabled,
@@ -386,7 +387,10 @@ export const useServicesManagement = () => {
 				formState.service === selectedService.service &&
 				formState.baseUrl.trim() === selectedService.baseUrl,
 		);
-		if (!formState.baseUrl || (!formState.apiKey && !canUseSavedApiKey)) {
+		if (
+			!formState.baseUrl ||
+			(formState.service !== "maintainerr" && !formState.apiKey && !canUseSavedApiKey)
+		) {
 			setFormTestResult({
 				success: false,
 				message: "Base URL and API Key are required to test unsaved connection details",
@@ -445,7 +449,10 @@ export const useServicesManagement = () => {
 			}
 			const result = await testConnectionBeforeAddMutation.mutateAsync({
 				baseUrl: formState.baseUrl.trim(),
-				apiKey: formState.apiKey.trim(),
+				apiKey:
+					formState.service === "maintainerr"
+						? "maintainerr-no-api-key"
+						: formState.apiKey.trim(),
 				service: formState.service,
 				httpAuth:
 					supportsHttpBasicAuth(formState.service) && formState.httpAuthEnabled

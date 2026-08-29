@@ -33,6 +33,7 @@ enum ServiceType {
   EMBY
   QUI
   TRACEARR
+  MAINTAINERR
 }
 
 enum ProviderIdentityKind {

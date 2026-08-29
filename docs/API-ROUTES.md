@@ -38,6 +38,7 @@ for the full rationale.
 | Path | Maturity | Summary |
 |---|---|---|
 | `/api/oidc-providers` | operator | OIDC provider configuration (single-admin) |
+| `/api/maintainerr` | experimental | Read-only Maintainerr scheduled-action attention feed |
 | `/api/system` | operator | Settings, restart, jobs, posture diagnostics |
 | `/api/backup` | operator | Create, download, restore, scheduled backups |
 | `/api/notifications` | stable | Channels, subscriptions, rules, delivery aggregation |

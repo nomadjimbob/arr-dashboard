@@ -399,6 +399,11 @@ export const SERVICE_GRADIENTS: Record<ServiceType, ServiceGradient> = {
 		to: "#6366f1", // indigo-500 (long magenta→indigo sweep, unused elsewhere)
 		glow: "rgba(217, 70, 239, 0.4)",
 	},
+	maintainerr: {
+		from: "#9333ea",
+		to: "#db2777",
+		glow: "rgba(147, 51, 234, 0.4)",
+	},
 };
 
 /**

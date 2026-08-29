@@ -18,6 +18,7 @@ import {
 	Tag,
 	Target,
 	Trash2,
+	CalendarClock,
 } from "lucide-react";
 
 export interface NavigationItem {
@@ -44,6 +45,13 @@ export const NAVIGATION_GROUPS: NavigationGroup[] = [
 		id: "monitor",
 		label: "Monitor",
 		items: [
+			{
+				href: "/maintainerr",
+				label: "Maintainerr",
+				description: "Review scheduled cleanup actions",
+				icon: CalendarClock,
+				keywords: ["cleanup", "removal", "scheduled"],
+			},
 			{
 				href: "/dashboard",
 				label: "Dashboard",

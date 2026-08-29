@@ -24,6 +24,7 @@ export * from "./regex-safety";
 export * from "./rule-criteria";
 export * from "./search";
 export * from "./seerr";
+export * from "./maintainerr";
 export * from "./setup-discovery";
 export * from "./setup-starters";
 export * from "./tautulli";
